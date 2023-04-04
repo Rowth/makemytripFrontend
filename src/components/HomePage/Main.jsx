@@ -10,9 +10,10 @@ import { Bottom } from "./Bottom";
 import { Header } from "./Header";
 import { Link } from "react-router-dom";
 import { SmallBottom } from "./SmallBottom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FareTypes } from "./FareTypes";
 import { Login } from "../login/Login";
+import axios from "axios";
 export const Main = () => {
   const [data, setData] = useState({
     from: "",
@@ -29,6 +30,26 @@ export const Main = () => {
     const popup = document.getElementById("popup");
     popup.classList.toggle("active");
   };
+
+  const handleSubmit = () => {
+    axios.post("http://localhost:7600/users", {
+      id: "0112",
+      name: "kiran",
+      email: "kiranthakur@gmail.com",
+      password: "efgh",
+      mobile: "123455893"
+    }).then((res) => {
+      alert("main")
+      console.log(res)
+    }).catch((err) => {
+      alert(err)
+      console.error(err)
+    })
+  };
+
+  useEffect(() => {
+    handleSubmit()
+  }, [])
   return (
     <div>
       <Header></Header>
@@ -49,7 +70,7 @@ export const Main = () => {
             />
           </Link>
           <div className="login">
-          <Login handleClick={handlePopup}/>
+            <Login handleClick={handlePopup} />
           </div>
           <Smallbutton>
             <div className="smallbuttonpic">
